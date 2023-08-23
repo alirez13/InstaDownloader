@@ -1,8 +1,7 @@
 # InstaDownloader
-Insta downloader for Windows
-اینستا دانلودر مخصوص ویندوز.
-زبان=پایتون_TkInter
-امکانات:
-با وارد کردن آیدی طرف مقابل عکس پروفایل،پست ها شامل عکس و ویدئو و کپشن هایشان دانلود میشود
-و با وارد کردن لینک پست مورد نظر فقط آن پست دانلود میشود.
-طراح و توسعه دهنده:Alirez13
+Insta downloader for Windows.
+Language=Python_TkInter
+Possibilities:
+By entering the ID of the other party in the profile picture, the posts including photos and videos and their captions will be downloaded
+And by entering the desired post link, only that post will be downloaded.
+Designer and developer: Alire13
