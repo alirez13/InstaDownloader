@@ -1,15 +1,19 @@
 import os
 import threading
 import instaloader
-from tkinter import *
-from tkinter import filedialog, messagebox
-from tkinter import ttk
+# from tkinter import *
+# from tkinter import filedialog, messagebox
+# from tkinter import ttk
 
-root = Tk()
-root.title('اینستا دانلودر')
+from customtkinter import *
+from customtkinter import filedialog
+from CTkMessagebox import *
+
+
+root = CTk()
+root.title('Instagram Donwloader')
 root.geometry('400x200')
 root.resizable(0, 0)
-root.config(bg='#121212')
 
 
 def downloadPost():
@@ -22,48 +26,39 @@ def downloadPost():
                 os.chdir(location)
                 URL = link.replace('https://www.instagram.com/p/', '')
                 URL = URL.replace('/', '')
-                messagebox.showinfo('اطلاعات', '  در حال دانلود')
-
-                progressbar = ttk.Progressbar(mode="determinate")
-                progressbar.place(x=80, y=40, width=190)
-                progressbar.start()
+                CTkMessagebox(title="Info", message='Downloading')
+                # progressbar = CTk.Progressbar(mode="determinate")
+                # progressbar.place(x=80, y=40, width=190)
+                # progressbar.start()
                 l = instaloader.Instaloader()
                 post = instaloader.Post.from_shortcode(l.context, URL)
 
                 l.download_post(post, target=link)
-                progressbar.destroy()
-                messagebox.showinfo('اطلاعات', 'دانلود تمام شد')
-
+                # progressbar.destroy()
+                CTkMessagebox(title="Info", message='The download is finished')
             except:
-                messagebox.showerror('خطا', 'پستی با این آدرس وجود ندارد')
-
+                CTkMessagebox(title="Error", message='There is no mail with this address')
         else:
             profile_name = link
             location = filedialog.askdirectory()
             os.chdir(location)
-            messagebox.showinfo('اطلاعات', '  در حال دانلود')
-            progressbar = ttk.Progressbar(mode="determinate")
-            progressbar.place(x=80, y=40, width=190)
-            progressbar.start()
+            CTkMessagebox(title="Info", message='Downloading')
+            # progressbar = CTkProgressBar(master=root)
+            # progressbar.pack()
+            # progressbar.start()
             instaloader.Instaloader().download_profile(profile_name, profile_pic_only=False)
-            progressbar.destroy()
-            messagebox.showinfo('اطلاعات', 'دانلود تمام شد')
+            # progressbar.destroy()
+            CTkMessagebox(title="Info", message='The download is finished')
 
     threading.Thread(target=download).start()
 
 
-postlink_label = Label(root, text='لینک پست', bg='#121212', fg='white', font=('Arial', 13))
-postlink_Entry = Entry(root, width=30)
+postlink_Entry = CTkEntry(root, placeholder_text='Post Link', font=('Roboto', 16), width=300)
+downloadPost_btn = CTkButton(root, text='Download', text_color='white', font=('Roboto', 16), command=downloadPost)
+exit_btn = CTkButton(root, text='Exit', text_color='white', font=('Roboto', 16), command=root.destroy)
 
-downloadPost_btn = Button(root, text='دانلود', bg='#121212', fg='white', borderwidth=3, font=('Arial', 11), width=30,
-                          command=downloadPost)
-exit_btn = Button(root, text='خروج', bg='#121212', fg='white', borderwidth=3, font=('Arial', 11), width=30,
-                  command=root.destroy)
-
-postlink_label.grid(row=0, column=0, padx=10, pady=10)
-postlink_Entry.grid(row=0, column=1)
-
-downloadPost_btn.place(relx=0.5, rely=0.4, anchor='c')
-exit_btn.place(relx=0.5, rely=0.6, anchor='c')
+postlink_Entry.pack(pady=12, padx=10)
+downloadPost_btn.pack(pady=6, padx=10)
+exit_btn.pack(pady=6, padx=10)
 
 root.mainloop()
