@@ -26,30 +26,29 @@ def downloadPost():
                 os.chdir(location)
                 URL = link.replace('https://www.instagram.com/p/', '')
                 URL = URL.replace('/', '')
-                CTkMessagebox.showinfo('Information', 'Downloading')
-
-                progressbar = CTk.Progressbar(mode="determinate")
-                progressbar.place(x=80, y=40, width=190)
-                progressbar.start()
+                CTkMessagebox(title="Info", message='Downloading')
+                # progressbar = CTk.Progressbar(mode="determinate")
+                # progressbar.place(x=80, y=40, width=190)
+                # progressbar.start()
                 l = instaloader.Instaloader()
                 post = instaloader.Post.from_shortcode(l.context, URL)
 
                 l.download_post(post, target=link)
-                progressbar.destroy()
-                CTkMessagebox.showinfo('Information', 'The download is finished')
+                # progressbar.destroy()
+                CTkMessagebox(title="Info", message='The download is finished')
             except:
-                CTkMessagebox.showerror('Error', 'There is no mail with this address')
+                CTkMessagebox(title="Error", message='There is no mail with this address')
         else:
             profile_name = link
             location = filedialog.askdirectory()
             os.chdir(location)
-            CTkMessagebox.showinfo('Information', 'Downloading')
-            progressbar = CTk.Progressbar(mode="determinate")
-            progressbar.place(x=80, y=40, width=190)
-            progressbar.start()
+            CTkMessagebox(title="Info", message='Downloading')
+            # progressbar = CTkProgressBar(master=root)
+            # progressbar.pack()
+            # progressbar.start()
             instaloader.Instaloader().download_profile(profile_name, profile_pic_only=False)
-            progressbar.destroy()
-            CTkMessagebox.showinfo('Information', 'The download is finished')
+            # progressbar.destroy()
+            CTkMessagebox(title="Info", message='The download is finished')
 
     threading.Thread(target=download).start()
 
