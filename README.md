@@ -1,5 +1,5 @@
 # InstaDownloader
-Insta downloader for Windows.
+Insta downloader for OS.
 Language=Python_TkInter
 Possibilities:
 By entering the ID of the other party in the profile picture, the posts including photos and videos and their captions will be downloaded
